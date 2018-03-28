@@ -421,11 +421,21 @@ class SinglyLinkedList {
     }
     appendData (data) {
         var newNode = new SingleNode(data);
+        if (this.first == undefined || this.first == null) {
+            this.first = newNode;
+            this.last = newNode;
+            return newNode;
+        }
         this.last.next = newNode;
         this.last = newNode;
         return newNode;
     }
     appendNode (node) {
+        if (this.first == undefined || this.first == null) {
+            this.first = node;
+            this.last = node;
+            return node;
+        }
         this.last.next = node;
         this.last = node;
         return node;
@@ -447,7 +457,7 @@ class SinglyLinkedList {
         while (curNode !== null) {
             printString += curNode.data;
             if (curNode.next !== null)
-                printString +=  ", ";
+                printString +=  " -> ";
             curNode = curNode.next;
         }
         console.log(printString);
@@ -591,45 +601,45 @@ testLinkedList.appendData(4);
 testLinkedList.appendData(3);
 testLinkedList.appendData(1);
 testLinkedList.appendData(1);
-testLinkedList.print();
-console.log("Last: " + testLinkedList.last.data);
-console.log("Removing duplicates...");
-testLinkedList.removeDuplicatesNoBuffer();
-testLinkedList.print();
-console.log("Last: " + testLinkedList.last.data);
-console.log("Adding nodes....");
-var twentyOneNode = testLinkedList.appendData(21);
-var sixNode = testLinkedList.appendData(6);
-testLinkedList.appendData(49);
-testLinkedList.appendData(8);
-testLinkedList.appendData(5);
-testLinkedList.appendData(9);
-testLinkedList.appendData(4);
-testLinkedList.appendData(5);
-testLinkedList.appendData(9);
-testLinkedList.print();
-console.log("Removing duplicates...");
-testLinkedList.removeDuplicatesNoBuffer();
-testLinkedList.print();
-console.log("Removing the 6 node...");
-deleteMiddleNode(sixNode);
-testLinkedList.print();
-console.log("Removing the 21 node...");
-deleteMiddleNode(twentyOneNode);
-testLinkedList.print();
-console.log("Last: " + testLinkedList.last.data);
-console.log("Contains 49? " + testLinkedList.contains(49));
-console.log("Contains 7? " + testLinkedList.contains(7));
-console.log("Expect 9 node:");
-console.log(testLinkedList.kFromLast(1));
-console.log("Expect 49 node:");
-console.log(testLinkedList.kFromLast(3));
-console.log("Expect undefined:");
-console.log(testLinkedList.kFromLast(0));
-console.log("Expect undefined:");
-console.log(testLinkedList.kFromLast(15));
-partition2(testLinkedList, 49);
-testLinkedList.print();
+// testLinkedList.print();
+// console.log("Last: " + testLinkedList.last.data);
+// console.log("Removing duplicates...");
+// testLinkedList.removeDuplicatesNoBuffer();
+// testLinkedList.print();
+// console.log("Last: " + testLinkedList.last.data);
+// console.log("Adding nodes....");
+// var twentyOneNode = testLinkedList.appendData(21);
+// var sixNode = testLinkedList.appendData(6);
+// testLinkedList.appendData(49);
+// testLinkedList.appendData(8);
+// testLinkedList.appendData(5);
+// testLinkedList.appendData(9);
+// testLinkedList.appendData(4);
+// testLinkedList.appendData(5);
+// testLinkedList.appendData(9);
+// testLinkedList.print();
+// console.log("Removing duplicates...");
+// testLinkedList.removeDuplicatesNoBuffer();
+// testLinkedList.print();
+// console.log("Removing the 6 node...");
+// deleteMiddleNode(sixNode);
+// testLinkedList.print();
+// console.log("Removing the 21 node...");
+// deleteMiddleNode(twentyOneNode);
+// testLinkedList.print();
+// console.log("Last: " + testLinkedList.last.data);
+// console.log("Contains 49? " + testLinkedList.contains(49));
+// console.log("Contains 7? " + testLinkedList.contains(7));
+// console.log("Expect 9 node:");
+// console.log(testLinkedList.kFromLast(1));
+// console.log("Expect 49 node:");
+// console.log(testLinkedList.kFromLast(3));
+// console.log("Expect undefined:");
+// console.log(testLinkedList.kFromLast(0));
+// console.log("Expect undefined:");
+// console.log(testLinkedList.kFromLast(15));
+// partition2(testLinkedList, 49);
+// testLinkedList.print();
 
 // 2.5 Sum Lists:  You have two numbers represented by a linked list, where each node contains a single digit.  
 // The digits are stored in reverse order, such that the 1's digit is at the head of the list.  
@@ -781,54 +791,327 @@ testStackSet.push(new SingleNode("l"));
 testStackSet.push(new SingleNode("m"));
 testStackSet.push(new SingleNode("n"));
 testStackSet.push(new SingleNode("o"));
-console.log("original");
-testStackSet.print();
-console.log("pushing p...");
-testStackSet.push(new SingleNode("p"));
-testStackSet.print();
-console.log("pushing q...");
-testStackSet.push(new SingleNode("q"));
-testStackSet.print();
-console.log("popping...");
-testStackSet.pop();
-testStackSet.print();
-console.log("popping...");
-testStackSet.pop();
-testStackSet.print();
-console.log("popping at index 1");
-testStackSet.popAt(1);
-testStackSet.print();
-console.log("popping at index 0");
-testStackSet.popAt(0);
-testStackSet.print();
-console.log("popping at index 3");
-testStackSet.popAt(3);
-testStackSet.print();
-
-
-// 4.1 Route Between Nodes:  
-
-// Given a directed graph, design an algorithm to find out whether there is a route between two nodes.
-const isRoute = (graph) => {
-
-}
+// console.log("original");
+// testStackSet.print();
+// console.log("pushing p...");
+// testStackSet.push(new SingleNode("p"));
+// testStackSet.print();
+// console.log("pushing q...");
+// testStackSet.push(new SingleNode("q"));
+// testStackSet.print();
+// console.log("popping...");
+// testStackSet.pop();
+// testStackSet.print();
+// console.log("popping...");
+// testStackSet.pop();
+// testStackSet.print();
+// console.log("popping at index 1");
+// testStackSet.popAt(1);
+// testStackSet.print();
+// console.log("popping at index 0");
+// testStackSet.popAt(0);
+// testStackSet.print();
+// console.log("popping at index 3");
+// testStackSet.popAt(3);
+// testStackSet.print();
 
 class GraphNode {
     constructor(data) {
         this.data = data;
-        this.neighbors = [];  // array of other GraphNode's
+        this.pointers = [];  // array of other GraphNode's
     }
 }
 
 class Queue {
     constructor (firstNode) {
-        this.list = new SinglyLinkedList(firstNode);
+        this.first = firstNode;
+        this.last = firstNode;
     }
     enqueue (node) {
-        node.next = this.list.first;
-        this.list.first = node;
+        if (!this.first) { // queue is empty 
+            this.first = node;
+            this.last = node;
+        } else {
+            this.last.next = node;
+            this.last = node;
+        }
     }
     dequeue () {
-        
+        if (!this.first) { //if no elements remain
+            return null;
+        }
+        else if (this.first === this.last) { // if only one element remains
+            var output = this.first;
+            this.first = null;
+            this.last = null;
+            return output;
+        }
+        else {
+            var output = this.first;
+            this.first = this.first.next;
+            return output;
+        }
+    }
+    isEmpty () {
+        return (!this.first);
+    }
+    print () {
+        if (!this.first)
+            return;
+        var printString = "";
+        var curNode = this.first;
+        while (curNode !== this.last) {
+            printString += curNode.data;
+            if (curNode.next !== null)
+                printString +=  " -> ";
+            curNode = curNode.next;
+        }
+        printString += curNode.data;
+        console.log(printString);
     }
 }
+// var testQueue = new Queue(new SingleNode("a"));
+// testQueue.enqueue(new SingleNode("b"));
+// testQueue.enqueue(new SingleNode("c"));
+// testQueue.enqueue(new SingleNode("d"));
+// testQueue.enqueue(new SingleNode("e"));
+// testQueue.enqueue(new SingleNode("f"));
+// testQueue.print();
+// console.log(testQueue.dequeue());
+// testQueue.print();
+// testQueue.enqueue(new SingleNode("g"));
+// testQueue.print();
+// console.log(testQueue.dequeue());
+// testQueue.print();
+
+
+// 4.1 Route Between Nodes:
+
+// Given a directed graph, design an algorithm to find out whether there is a route between two nodes.
+const isRoute = (node1, node2) => {
+    var queue = new Queue(node1);
+    var output = false;
+    while(!queue.isEmpty()) {
+        var curNode = queue.dequeue();
+        curNode.pointers.forEach(function(nextNode) {
+            if (!nextNode.checked) {
+                if(nextNode === node2)
+                    output = true;
+                nextNode.checked = true;
+                queue.enqueue(nextNode);
+            }
+        });
+    }
+    return output;
+}
+// var a = new GraphNode("A");
+// var b = new GraphNode("B");
+// var c = new GraphNode("C");
+// var d = new GraphNode("D");
+// var e = new GraphNode("E");
+// var f = new GraphNode("F");
+// var g = new GraphNode("G");
+// var h = new GraphNode("H");
+// var i = new GraphNode("I");
+// var j = new GraphNode("J");
+// var k = new GraphNode("K");
+// var x = new GraphNode("X");
+// var z = new GraphNode("Z");
+// a.pointers = [b, c, d];
+// b.pointers = [e, i];
+// c.pointers = [f];
+// d.pointers = [f, g, h];
+// e.pointers = [c];
+// g.pointers = [j];
+// j.pointers = [k];
+// z.pointers = [k];
+
+
+// console.log("Expect true: " + isRoute(a,k));
+// console.log("Expect true: " + isRoute(a,i));
+// console.log("Expect false: " + isRoute(a,x)); // x is not connected in any way
+// console.log("Expect false: " + isRoute(a,z)); // z is connected but cannot be reached (wrong way on a one-way street)
+
+class BinaryNode {
+    constructor(data) {
+        this.data = data;
+        this.lesser = null;
+        this.greater = null;
+    }
+}
+
+class BinarySearchTree {
+    add(addNode) {
+        if(this.root === undefined) {
+            this.root = addNode;
+            return;
+        }
+        var curNode = this.root;
+        while(curNode) {
+            if (addNode.data < curNode.data) {
+                if (curNode.lesser === null) {
+                    curNode.lesser = addNode;
+                } else {
+                    curNode = curNode.lesser;
+                }
+            }
+            else if (addNode.data > curNode.data) {
+                if (curNode.greater === null) {
+                    curNode.greater = addNode;
+                } else {
+                    curNode = curNode.greater;
+                }
+            }
+            else {
+                return
+            }
+        }
+    }
+}
+// var testBinarySearchTree = new BinarySearchTree();
+// testBinarySearchTree.add(new BinaryNode(8));
+// testBinarySearchTree.add(new BinaryNode(4));
+// testBinarySearchTree.add(new BinaryNode(12));
+// testBinarySearchTree.add(new BinaryNode(2));
+// testBinarySearchTree.add(new BinaryNode(6));
+// testBinarySearchTree.add(new BinaryNode(10));
+// testBinarySearchTree.add(new BinaryNode(14));
+// console.log(testBinarySearchTree.root);
+// console.log(Math.floor(1/2));
+var testArray = [0,1,2,3,4,5,6,7,8,9,10,11,12];
+
+const shortestTree = (array) => {
+    var tree = new BinarySearchTree();
+    var treeRoot = Math.ceil((testArray.length-1)/2);
+    tree.add(new BinaryNode(array[treeRoot]));
+    var queue = new Queue({
+        middle: treeRoot,
+        min: 0,
+        max: testArray.length - 1
+    });
+    while(!queue.isEmpty()) {
+        var curNode = queue.dequeue();
+        // find the index halfway between curIndex and it's associated min
+        var targetIndex = Math.floor((curNode.middle - curNode.min) / 2) + curNode.min;
+        tree.add(new BinaryNode(array[targetIndex]));
+        if (targetIndex > curNode.min + 1) {
+            queue.enqueue({
+                middle: array[targetIndex],
+                min: curNode.min,
+                max: curNode.middle
+            });
+        }
+        else if (targetIndex === curNode.min + 1) {
+            tree.add(new BinaryNode(array[curNode.min]));
+            tree.add(new BinaryNode(array[targetIndex + 1]));
+        }
+        targetIndex = Math.ceil((curNode.max - curNode.middle) / 2) + curNode.middle;
+        tree.add(new BinaryNode(array[targetIndex]));
+        if (targetIndex < curNode.max - 1) {
+            queue.enqueue({
+                middle: array[targetIndex],
+                min: curNode.middle,
+                max: curNode.max
+            });
+        }
+        else if (targetIndex === curNode.max - 1) {
+            tree.add(new BinaryNode(array[curNode.max]));
+            tree.add(new BinaryNode(array[targetIndex - 1]));            
+        }
+    }
+    return tree;
+};
+// console.log(shortestTree(testArray).root);
+
+// 4.3 List of Depths:
+// Given a binary tree, design an algorithm which creates a linked list of all the nodes at each depth 
+// (e.g. if you have a tree with depth D, you'll have D linked lists).
+
+const listOfDepths = (tree) => {
+    var listList = [];
+    var curQueue = new Queue();
+    var nextQueue = new Queue();
+    curQueue.enqueue(tree.root);
+    while(!curQueue.isEmpty()) {
+        var curList = new SinglyLinkedList();
+        while(!curQueue.isEmpty()) {
+            var curNode = curQueue.dequeue();
+            curList.appendData(curNode.data);
+            if (curNode.lesser)
+                nextQueue.enqueue(curNode.lesser);
+            if (curNode.greater)
+                nextQueue.enqueue(curNode.greater);
+        }
+        listList.push(curList);
+        curQueue = nextQueue;
+        nextQueue = new Queue();
+    }
+    return listList;
+}
+
+var testTree = new BinarySearchTree();
+testTree.add(new BinaryNode(6));
+testTree.add(new BinaryNode(3));
+testTree.add(new BinaryNode(9));
+testTree.add(new BinaryNode(1));
+testTree.add(new BinaryNode(4));
+testTree.add(new BinaryNode(7));
+testTree.add(new BinaryNode(11));
+testTree.add(new BinaryNode(0));
+testTree.add(new BinaryNode(2));
+testTree.add(new BinaryNode(5));
+testTree.add(new BinaryNode(8));
+testTree.add(new BinaryNode(10));
+testTree.add(new BinaryNode(12));
+
+//                  6
+//                /   \
+//               3     9
+//              / \   / \
+//             1  4  7   11
+//            / \  \  \  /\
+//           0  2  5  8 10 12
+
+// var testDepths = (listOfDepths(testTree));
+// testDepths.forEach(function(linkedList) {
+//   linkedList.print();
+// });
+
+
+// 4.4 Check Balanced:
+// Implement a function to check if a binary tree is balanced.  For the purposes of this questions,
+// a balanced tree is defined to be a tree such that the heights of the two subtrees of any node 
+// never differ by more than one.
+
+const checkBalanced = (tree) => {
+    var allRowsFull = true;
+    var curQueue = new Queue();
+    var nextQueue = new Queue();
+    var powerOf2 = 1;
+    curQueue.enqueue(tree.root);
+    while(!curQueue.isEmpty()) {
+        var rowCount = 0;
+        while(!curQueue.isEmpty()) {
+            var curNode = curQueue.dequeue();
+            rowCount ++;
+            if (curNode.lesser)
+                nextQueue.enqueue(curNode.lesser);
+            if (curNode.greater)
+                nextQueue.enqueue(curNode.greater);
+        }
+        curQueue = nextQueue;
+        nextQueue = new Queue();
+        if (!allRowsFull && !curQueue.isEmpty()) {
+            return false
+        }
+        if (rowCount !== powerOf2) {
+            if (!allRowsFull)
+                return false;
+            allRowsFull = false;
+        }
+        powerOf2 *= 2;
+    }
+    return true;
+}
+
+console.log(checkBalanced(testTree));
