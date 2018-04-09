@@ -663,7 +663,6 @@ addend2.appendData(9);
 addend2.appendData(2);
 
 const sumLists = (addend1, addend2) => {
-    debugger;
     var curNode1 = addend1.first;  // keeps track of iterating node in addend1
     var curNode2 = addend2.first;  // keeps track of iterating node in addend2
     var carry = 0;
@@ -904,33 +903,59 @@ const isRoute = (node1, node2) => {
     }
     return output;
 }
-// var a = new GraphNode("A");
-// var b = new GraphNode("B");
-// var c = new GraphNode("C");
-// var d = new GraphNode("D");
-// var e = new GraphNode("E");
-// var f = new GraphNode("F");
-// var g = new GraphNode("G");
-// var h = new GraphNode("H");
-// var i = new GraphNode("I");
-// var j = new GraphNode("J");
-// var k = new GraphNode("K");
-// var x = new GraphNode("X");
-// var z = new GraphNode("Z");
-// a.pointers = [b, c, d];
-// b.pointers = [e, i];
-// c.pointers = [f];
-// d.pointers = [f, g, h];
-// e.pointers = [c];
-// g.pointers = [j];
-// j.pointers = [k];
-// z.pointers = [k];
+
+// const isRouteRecursive = (node1, node2) => {
+//     node1.pointers.forEach(function(nextNode) {
+//         if(!nextNode.checked) {
+//             if(nextNode === node2)
+//                 return true;
+//             else {
+//                 nextNode.check = true;
+//                 return(isRouteRecursive(nextNode, node2));
+//             }
+//         }
+//     });
+// }
+
+const isRouteRecursive = (node1, node2) => {
+    node1.checked = true;
+    if (node1 === node2) 
+        return true;
+    node1.pointers.forEach(function(nextNode) {
+        if(!nextNode.checked) {
+            isRouteRecursive(nextNode, node2);
+        }
+    });
+} //!!!!!!!!!!!!!!!!!!
 
 
-// console.log("Expect true: " + isRoute(a,k));
-// console.log("Expect true: " + isRoute(a,i));
-// console.log("Expect false: " + isRoute(a,x)); // x is not connected in any way
-// console.log("Expect false: " + isRoute(a,z)); // z is connected but cannot be reached (wrong way on a one-way street)
+var a = new GraphNode("A");
+var b = new GraphNode("B");
+var c = new GraphNode("C");
+var d = new GraphNode("D");
+var e = new GraphNode("E");
+var f = new GraphNode("F");
+var g = new GraphNode("G");
+var h = new GraphNode("H");
+var i = new GraphNode("I");
+var j = new GraphNode("J");
+var k = new GraphNode("K");
+var x = new GraphNode("X");
+var z = new GraphNode("Z");
+a.pointers = [b, c, d];
+b.pointers = [e, i];
+c.pointers = [f];
+d.pointers = [f, g, h];
+e.pointers = [c];
+g.pointers = [j];
+j.pointers = [k];
+z.pointers = [k];
+
+
+console.log("Expect true: " + isRouteRecursive(a,k));
+console.log("Expect true: " + isRoute(a,i));
+console.log("Expect false: " + isRoute(a,x)); // x is not connected in any way
+console.log("Expect false: " + isRoute(a,z)); // z is connected but cannot be reached (wrong way on a one-way street)
 
 class BinaryNode {
     constructor(data) {
@@ -1114,4 +1139,126 @@ const checkBalanced = (tree) => {
     return true;
 }
 
-console.log(checkBalanced(testTree));
+// console.log(checkBalanced(testTree));
+
+
+var node15 = new BinaryNode(15);
+var node16 = new BinaryNode(16);
+var node14 = new BinaryNode(14);
+var node17 = new BinaryNode(17);
+var node12 = new BinaryNode(12);
+var node13 = new BinaryNode(13);
+var node0 = new BinaryNode(0);
+var node18 = new BinaryNode(18);
+
+node15.lesser = node14;
+node15.greater = node16;
+node14.lesser = node12;
+node12.lesser = node0;
+node12.greater = node13;
+node16.greater = node17;
+node12.greater = node18;   //this is a bad node, plug it in at different places or change it's value to produce false results
+var fakePlasticTree = {root: node15};
+
+    // 4.5 Validate BST
+
+    // Implement a function to check if a binary tree is a binary search tree.
+
+const checkBinarySearch2 = (tree) => { // DOESN'T FUNCTION
+    debugger;
+    var qStart = {...tree.root, min: null, max: null};
+    var q = new Queue(qStart);
+    while(!q.isEmpty()) {
+        var curNode = q.dequeue();
+        if (curNode.lesser) {
+            if(curNode.lesser.data <= curNode.data && curNode.min == curNode.data)
+                q.enqueue({...curNode.lesser, min: curNode.lesser.data, max: curNode.max});
+            else if(curNode.lesser.data <= curNode.data && curNode.lesser.data > curNode.min)   // I find this <= to be a weird trait of binary search trees.
+                q.enqueue({...curNode.lesser, min: curNode.min, max: curNode.max ? curNode.max : curNode.data});
+            else
+                return false;
+        }
+        if (curNode.greater) {
+            if(curNode.greater.data > curNode.data && curNode.max == curNode.data)
+                q.enqueue({...curNode.greater, min: curNode.min, max: curNode.greater.data})
+            else if(curNode.greater.data > curNode.data && curNode.max ? curNode.greater.data < curNode.max : true)
+                q.enqueue({...curNode.greater, min: curNode.min ? curNode.min : curNode.data, max: curNode.greater.data});
+            else
+                return false;
+        }
+    }
+    return true;
+};
+
+const checkBinarySearch = (tree) => {
+    var qStart = {...tree.root, min: null, max: null};
+    var q = new Queue(qStart);
+    while(!q.isEmpty()) {
+        var curNode = q.dequeue();
+        if (curNode.lesser) {
+            if (curNode.min === null) {
+                if (curNode.lesser.data > curNode.data)
+                    return false;
+            } else {
+                if (curNode.lesser.data > curNode.data || curNode.lesser.data <= curNode.min)
+                    return false;
+            }
+            q.enqueue({...curNode.lesser, min: curNode.min, max: curNode.data})
+        }
+        if (curNode.greater) {
+            if (curNode.max === null) {
+                if (curNode.greater.data <= curNode.data)
+                    return false;
+            } else {
+                if (curNode.greater.data <= curNode.data || curNode.greater.data > curNode.max)
+                    return false;
+            }
+            q.enqueue({...curNode.greater, min: curNode.data, max: curNode.max})
+        }
+    }
+    return true;
+};
+
+console.log(checkBinarySearch(fakePlasticTree));
+
+// 4.6 Successor:
+// Write an algorithm to find the "next" node (i.e. in-order successor) of a given node in a binary search tree.  
+// You man assume that each node has a link to its parent.
+
+const successor = (inputNode) => {
+    if(inputNode.greater === null) {
+        if(inputNode.parent.lesser === inputNode) {
+            return inputNode.parent;
+        }
+        else if(inputNode.parent.greater === inputNode) {
+            var curParent = inputNode.parent;
+            while(curParent.parent) {
+                if(curParent.parent.lesser === curParent)
+                    return curParent.parent;
+                curParent = curParent.parent;
+            }
+            return null;
+        }
+    } else {
+        var curNode = inputNode.greater;
+        while(curNode) {
+            if(curNode.lesser === null)
+                return curNode;
+            curNode = curNode.lesser;
+        }
+    }
+};
+
+var node8 = new BinaryNode(8);
+var node4 = new BinaryNode(12);
+var node2 = new BinaryNode(2);
+var node6 = new BinaryNode(6);
+var node10 = new BinaryNode(10);
+var node14 = new BinaryNode(14);
+
+node8.lesser = node4; node8.greater = node12;
+node4.lesser = node2; node4.greater = node6; node4.parent = node8;
+node12.lesser = node10; node12.greater = node14; node12.parent = node8;
+node2.parent = node4; node6.parent = node4; node10.parent = node12; node14.parent = node12;
+
+console.log(successor(node14));
