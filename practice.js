@@ -89,7 +89,20 @@ const unique = (inputWord) => {
     }
     return(true);
   }
-  // console.log(unique("hello"));
+
+  const uniqueRedo = (inputWord) => {
+    for (var i = 0; i < inputWord.length-1; i++) {
+        for (var j = i + 1; j < inputWord.length; j++) {
+            console.log(inputWord[i] + ", " + inputWord[j])
+            if (inputWord[i] == inputWord[j])
+                return false
+        }
+    }
+    return true
+  } 
+  console.log(unique("1234593"));
+
+  //console.log("expect true: " + unique("helo"));
 
 //1.1  with Hash table
 const uniqueWithHash = (inputWord) => {
