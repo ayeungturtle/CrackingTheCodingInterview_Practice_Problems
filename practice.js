@@ -1,4 +1,6 @@
-// Creates Hash Table for key/value pairs.
+// My own implementation of key-value hash table.  Obviously, I can simply use JSON as a hash table
+// but want to do this as an educational exercise.  Dealing with collisions by simply using an array
+// of arrays.  Not very efficient, but simple.
 const newHashKeyValue = () => {
     return {
         array: [[],[],[],[],[],[],[],[],[],[]],
@@ -6,11 +8,11 @@ const newHashKeyValue = () => {
             this.array = [[],[],[],[],[],[],[],[],[],[]];
         },
         insert: function(key, value) {
-            var hashLoc = this.assign(key);
-            this.array[hashLoc].push({key, value});
+            var hashIndex = this.getIndex(key);
+            this.array[hashIndex].push({key, value});
         },
         search: function(key) {
-            var hashLoc = this.assign(key);
+            var hashIndex = this.getIndex(key);
             for (var i = 0; i < this.array[hashLoc].length; i++) {
                 if (this.array[hashLoc][i].key == key) {
                     return this.array[hashLoc][i].value;
@@ -18,7 +20,11 @@ const newHashKeyValue = () => {
             }
             return false;
         },
-        assign: function(key) {
+        // We get a key's index by adding the ascii values for all for the characters in the key.
+        // Right now, the hashtable is limited to an array with length 10.  We could improve speed with a bigger array.
+        // Using ascii total of the word, as opposed to going off, say, the first character, ensures a more
+        // even distribution of keys spread throughout the array.
+        getIndex: function(key) {
             var asciiTotal = 0;
             for (var i = 0; i < key.length; i++) {
                 asciiTotal += key.charCodeAt(i);
@@ -26,7 +32,7 @@ const newHashKeyValue = () => {
             return(asciiTotal % 10)
         },
         remove: function(key) {
-            var hashLoc = this.assign(key);
+            var hashLoc = this.getIndex(key);
             for (var i = 0; i < this.array[hashLoc].length; i++) {
                 if (this.array[hashLoc][i].key == key) {
                     this.array[hashLoc].splice(i, 1);
@@ -77,6 +83,9 @@ const newHashSingleElement = () => {
         }
     }
 };
+
+var testHash = newHashSingleElement();
+console.log (testHash);
 
 //1.1 Brute    Determine if a string has all unique characters
 const unique = (inputWord) => {
@@ -135,6 +144,20 @@ const permutations = (string1, string2) => {
 }
 // console.log(permutations('andy ', 'adyn'));
 
+const permutationsRedo = (string1, string2) => {
+    if (string1.length != string2.length)
+        return false;
+    var string1Array = string1.split('').sort();
+    var string2Array = string2.split('').sort();
+    for (var i = 0; i < string1Array.length; i++) {
+        if (string1Array[i] != string2Array[i])
+            return false;
+    }
+    return true;
+}
+
+console.log("permutations:  " + permutationsRedo("strawberry", "strawberyy"))
+
 
 //1.3 Brute     Replace spaces with '%20.'  Time O=n    Space
 
@@ -151,6 +174,18 @@ const urlIfy = (input) => {
     return outputString;
 }
 // console.log(urlIfy("ahsdfsgisdfg8"))
+
+const urlifyRedo = (inputString) => {
+    let outputString = "";
+    for (i = 0; i < inputString.length; i++) {
+        if (inputString[i] == " ")
+            outputString += "%20";
+        else
+            outputString += inputString[i]
+    };
+    return outputString;
+};
+// console.log("urlifyRedo test:  " + urlifyRedo("ahs dfsgis dfg8"))
 
 //1.3 Character Array
 
