@@ -247,7 +247,40 @@ const palPerm2 = (input) => {
         return (numOdds == 1);
     }
 }
+
+let test = "zacharia".split("").sort().join("");
+console.log(test)
+
+const palindromPermutationRedo = (inputString) => {
+    let sortedInputString = inputString.split("").sort().join("");
+    console.log(sortedInputString);
+    let oddCharacterCountCount = 0;
+    //count each character
+    //if input has even length, then all character counts must be even
+    if (inputString.length % 2 == 0) {
+        let currentIndex = 0;
+        while (currentIndex < inputString.length - 1) {
+            let characterCountIsOdd = true;
+            if (sortedInputString[currentIndex] == sortedInputString[currentIndex + 1])
+                characterCountIsOdd = !characterCountIsOdd;
+            
+            currentIndex++;
+            
+        }
+
+        for (var i = 0; i < inputString.length; i++) {
+            let thisCharacterCount = 0;
+
+        }
+    }
+    //if input has an odd length, then one character count must be odd and the rest even
+    if (inputString.length % 2 == 1) {
+        
+    }
+    return sortedInputString;
+}
 // console.log(palPerm('andyydandr'));
+console.log(palindromPermutationRedo('andyydandr'));
 
 
 // 1.5  One Away   Time O(n)
